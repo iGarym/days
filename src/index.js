@@ -3,6 +3,25 @@ import Duration from 'duration';
 import 'normalize.css';
 import './index.less';
 
+function loop() {
+  const now = new Date();
+  const duration = new Duration(start, now);
+  keys.forEach(key => {
+    const flip = flips[key];
+    if (!flip) return;
+    flip.flipTo({ to: duration[key] });
+  });
+
+  setTimeout(() => {
+    loop();
+  }, 1000);
+}
+
+function setFontSize() {
+  const size = Math.min(45, Math.round(window.screen.width / 20));
+  document.documentElement.style.fontSize = `${size}px`;
+}
+
 const start = new Date('2016-07-23 12:00:00');
 const flips = {};
 const keys = [
@@ -19,20 +38,6 @@ const keys = [
   'year',
   'years'
 ];
-
-function loop() {
-  const now = new Date();
-  const duration = new Duration(start, now);
-  keys.forEach(key => {
-    const flip = flips[key];
-    if (!flip) return;
-    flip.flipTo({ to: duration[key] });
-  });
-
-  setTimeout(() => {
-    loop();
-  }, 1000);
-}
 
 const getDurationDefault = time => (val = 1) =>
   Math.ceil(time / val)
@@ -59,6 +64,8 @@ const getDefaultCount = () => {
 };
 
 const defaultCount = getDefaultCount();
+
+setFontSize();
 
 keys.forEach(key => {
   const node = document.querySelector(`.${key}`);
