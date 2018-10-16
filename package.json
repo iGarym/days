@@ -6,7 +6,7 @@
   "homepage": "https://igarym.github.io/days/",
   "scripts": {
     "dev": "parcel index.html",
-    "build": "parcel build index.html --public-url /days/",
+    "build": "rm -rf dist && parcel build index.html --public-url /days/",
     "deploy": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
